@@ -13,7 +13,7 @@
 <body>
   <header>
     <h1>粗粮减脂厨房</h1>
-    <span id="version">v0.6.0</span>
+    <span id="version">v0.7.0</span>
   </header>
   <main id="app">
     <section id="profile" class="page active">
@@ -107,10 +107,33 @@
         <p class="note">低价值：五花肉、油炸、重油红烧、外卖油。记录时注意。</p>
       </div>
     </section>
-    <section id="protein" class="page"><h2>蛋白补充</h2><p>即将上线</p></section>
-    <section id="fiber" class="page"><h2>纤维与饮水</h2><p>即将上线</p></section>
-    <section id="recipes" class="page"><h2>懒人蔬菜</h2><p>即将上线</p></section>
-    <section id="weekly" class="page"><h2>一周菜单</h2><p>即将上线</p></section>
+    <section id="protein" class="page">
+      <h2>蛋白补充</h2>
+      <p>优先全食物蛋白。缺口用蛋白粉填补（默认每勺24g，每日最多2勺）。</p>
+      <div class="results">
+        <p>肠道舒适提示：高蛋白粉 + 低纤维 + 少水可能便秘。增加粗粮、蔬菜、饮水。</p>
+        <p class="note">持续不适请就医。</p>
+      </div>
+    </section>
+    <section id="fiber" class="page">
+      <h2>纤维与饮水</h2>
+      <p>目标纤维 25-30g，饮水 ~30-35 ml/kg。</p>
+      <button id="add-water">+250ml 水</button>
+      <div id="fiber-progress" class="results">纤维进度将根据日志计算。</div>
+    </section>
+    <section id="recipes" class="page">
+      <h2>懒人蔬菜</h2>
+      <p>≥30 道 ≤10分钟、≤5食材的简单菜。油克数明确标注。</p>
+      <div class="card"><strong>蒜蓉菠菜</strong> · 油 8g · 5分钟 · 便宜好吃</div>
+      <div class="card"><strong>白灼西兰花</strong> · 油 5g · 不开火可选 · 微波友好</div>
+      <p class="note">更多菜谱数据持续添加。</p>
+    </section>
+    <section id="weekly" class="page">
+      <h2>一周菜单与购物清单</h2>
+      <p>生成7天计划，控制热量±5%，蛋白达标，复用食材减少浪费。</p>
+      <button id="gen-weekly">生成示例周计划</button>
+      <div id="weekly-result" class="results" hidden></div>
+    </section>
     <section id="changelog" class="page"><h2>更新日志</h2><pre id="changelog-content"></pre></section>
   </main>
   <nav class="bottom-nav">
