@@ -43,3 +43,7 @@ Fold these into the features above; P0 = do while building that feature.
 - **P1 · R-06 Owner's staples verified first (into #2 食材库)** — RESEARCH R1.6
   - Seed: 鸡腿肉去皮(熟,烤) 179 kcal/24.76 P/8.15 F; 水浸金枪鱼(淡,沥干) 86/19.44/0.96, with USDA FDC IDs as `source`.
   - These show without "≈" only after verification on fdc.nal.usda.gov.
+- **P1 · R-07 Grain mixer honesty: kcal vs fiber/GI (into #3 杂粮饭配比器)** — RESEARCH R2.1
+  - Mixer output shows kcal/100 g cooked side-by-side with plain white rice, plus fiber delta and an approximate GI band (低/中/高, labelled "≈, 仅供参考").
+  - No copy claims coarse grains are lower-calorie; portion (碗/克) is presented as the main kcal lever.
+  - Unit test: 100% white rice blend = 130 kcal/100 g cooked (with FDC 168878 value) ± rounding.
