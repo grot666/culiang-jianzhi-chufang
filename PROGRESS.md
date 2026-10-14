@@ -1,13 +1,14 @@
 # PROGRESS.md
 
-## Session start: 2026-10-15 03:33 +08
+## Session: 2026-10-15 ~03:40 +08
 
-First session. Created repository, added PROMPT.md.
+### Shipped
+- v0.1.0: Profile targets (BMR/TDEE/macros), PWA shell, tests.
+- v0.2.0: Ingredient database search (initial 5 items).
 
-Current time check: deadline 2026-10-15 10:00 +08, ~6.5h remaining.
+### Notes
+- GitHub Pages API enable failed (403, token scope). Files ready; enable manually in repo Settings > Pages > Branch: main / root. Live: https://grot666.github.io/culiang-jianzhi-chufang/
+- Data: only 5 ingredients so far; expand to ≥120.
 
-## Shipped
-- Initial repo setup, PROMPT.md committed.
-
-## Next
-Scaffold app, implement feature 1: Profile & targets.
+### Next
+Expand ingredients, implement coarse-grain mixer.

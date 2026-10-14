@@ -1,6 +1,45 @@
 import { calculateTargets } from './core/nutrition.js';
 
 const STORAGE_KEY = 'culiang.v1.profile';
+let ingredients = [];
+
+async function loadIngredients() {
+  try {
+    const res = await fetch('./data/ingredients.json');
+    ingredients = await res.json();
+    renderIngredients(ingredients);
+  } catch (e) {
+    console.error('Failed to load ingredients', e);
+    document.getElementById('ingredient-list').textContent = '食材数据加载失败';
+  }
+}
+
+function renderIngredients(list) {
+  const el = document.getElementById('ingredient-list');
+  if (!list.length) {
+    el.innerHTML = '<p>无匹配食材</p>';
+    return;
+  }
+  el.innerHTML = list.map(ing => `
+    <div class="card">
+      <strong>${ing.name}</strong> ${ing.verified ? '' : '≈'}
+      <div>每100g: ${ing.kcal} kcal · P${ing.protein}g · F${ing.fat}g · C${ing.carbs}g · 纤${ing.fiber}g</div>
+      <div style="font-size:0.85rem;color:#666">¥${ing.priceCNYPer500g}/500g · 来源: ${ing.source}</div>
+    </div>
+  `).join('');
+}
+
+function initSearch() {
+  const input = document.getElementById('ingredient-search');
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    const filtered = ingredients.filter(i => 
+      i.name.toLowerCase().includes(q) || 
+      (i.tags && i.tags.some(t => t.includes(q)))
+    );
+    renderIngredients(filtered);
+  });
+}
 
 function loadProfile() {
   try {
@@ -41,7 +80,6 @@ function initProfile() {
   const form = document.getElementById('profile-form');
   const saved = loadProfile();
   if (saved) {
-    // populate form
     document.getElementById('sex').value = saved.sex || 'male';
     document.getElementById('age').value = saved.age || 30;
     document.getElementById('height').value = saved.height || 170;
@@ -82,12 +120,13 @@ function initNav() {
 function init() {
   initNav();
   initProfile();
-  // load changelog later
+  loadIngredients();
+  initSearch();
 }
-
-init();
 
 // PWA
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW failed', err));
 }
+
+init();

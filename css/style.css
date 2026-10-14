@@ -105,3 +105,10 @@ button:active { background: var(--primary-light); }
 @media (max-width: 360px) {
   .bottom-nav button { font-size: 0.65rem; padding: 8px 2px; }
 }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
