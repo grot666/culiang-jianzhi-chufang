@@ -12,6 +12,7 @@ async function loadIngredients() {
     renderIngredients(ingredients);
     grains = ingredients.filter(i => i.cookedYield);
     initPlate();
+    initLog();
     initMixer();
   } catch (e) {
     console.error('Failed to load ingredients', e);
@@ -228,3 +229,66 @@ function initPlate() {
 }
 
 // Call after load
+
+const LOG_KEY = 'culiang.v1.dailyLog';
+
+function loadLog() {
+  try {
+    return JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+  } catch { return []; }
+}
+function saveLog(log) {
+  try { localStorage.setItem(LOG_KEY, JSON.stringify(log)); } catch(e) { console.error(e); }
+}
+
+function initLog() {
+  const sel = document.getElementById('log-food');
+  if (!sel) return;
+  sel.innerHTML = ingredients.map(i => `<option value="${i.id}">${i.name}</option>`).join('');
+  function render() {
+    const log = loadLog();
+    const listEl = document.getElementById('log-list');
+    listEl.innerHTML = log.map((item, idx) => `<div class="card">${item.name} ${item.grams}g · ${item.kcal} kcal <button onclick="removeLog(${idx})">删</button></div>`).join('') || '<p>今日暂无记录</p>';
+    // Summary
+    const total = log.reduce((s, i) => ({kcal: s.kcal+i.kcal, p: s.p+i.protein, f: s.f+i.fat, c: s.c+i.carbs}), {kcal:0,p:0,f:0,c:0});
+    const profile = loadProfile();
+    let target = {calories: 1800, proteinG: 120};
+    if (profile) {
+      const t = calculateTargets(profile);
+      target = t;
+    }
+    document.getElementById('log-summary').innerHTML = `
+      <p>已摄入: ${Math.round(total.kcal)} kcal · P ${total.p.toFixed(1)}g · F ${total.f.toFixed(1)}g · C ${total.c.toFixed(1)}g</p>
+      <p>剩余: ${Math.max(0, target.calories - Math.round(total.kcal))} kcal · P ${Math.max(0, target.proteinG - total.p).toFixed(1)}g</p>
+    `;
+  }
+  document.getElementById('add-log').addEventListener('click', () => {
+    const id = sel.value;
+    const grams = +document.getElementById('log-grams').value;
+    const ing = ingredients.find(i => i.id === id);
+    if (!ing || grams <= 0) return;
+    const log = loadLog();
+    log.push({
+      id, name: ing.name, grams,
+      kcal: Math.round(ing.kcal * grams / 100),
+      protein: +(ing.protein * grams / 100).toFixed(1),
+      fat: +(ing.fat * grams / 100).toFixed(1),
+      carbs: +(ing.carbs * grams / 100).toFixed(1)
+    });
+    saveLog(log);
+    render();
+  });
+  document.getElementById('clear-log').addEventListener('click', () => {
+    if (confirm('清空今日记录？')) { saveLog([]); render(); }
+  });
+  // Global remove for simplicity
+  window.removeLog = (idx) => {
+    const log = loadLog();
+    log.splice(idx, 1);
+    saveLog(log);
+    render();
+  };
+  render();
+}
+
+// Ensure called

@@ -13,7 +13,7 @@
 <body>
   <header>
     <h1>粗粮减脂厨房</h1>
-    <span id="version">v0.4.0</span>
+    <span id="version">v0.5.0</span>
   </header>
   <main id="app">
     <section id="profile" class="page active">
@@ -88,7 +88,16 @@
       <button id="calc-plate">计算这一餐</button>
       <div id="plate-result" class="results" hidden></div>
     </section>
-    <section id="log" class="page"><h2>今日饮食</h2><p>即将上线</p></section>
+    <section id="log" class="page">
+      <h2>今日饮食</h2>
+      <p>快速添加食材，查看剩余宏量。</p>
+      <select id="log-food"></select>
+      <input type="number" id="log-grams" value="100" min="1" placeholder="克数">
+      <button id="add-log">添加到今日</button>
+      <div id="log-list"></div>
+      <div id="log-summary" class="results"></div>
+      <button id="clear-log">清空今日</button>
+    </section>
     <section id="fat" class="page"><h2>脂肪预算</h2><p>即将上线</p></section>
     <section id="protein" class="page"><h2>蛋白补充</h2><p>即将上线</p></section>
     <section id="fiber" class="page"><h2>纤维与饮水</h2><p>即将上线</p></section>
