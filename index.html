@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>粗粮减脂厨房</title>
+  <meta name="description" content="粗粮减脂餐计划工具 — 什么吃、怎么做、买什么、快速烹饪">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2d6a4f">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+  <header>
+    <h1>粗粮减脂厨房</h1>
+    <span id="version">v0.1.0</span>
+  </header>
+  <main id="app">
+    <section id="profile" class="page active">
+      <h2>我的目标</h2>
+      <form id="profile-form">
+        <label>性别
+          <select id="sex" required>
+            <option value="male">男</option>
+            <option value="female">女</option>
+          </select>
+        </label>
+        <label>年龄 (岁)
+          <input type="number" id="age" min="18" max="80" value="30" required>
+        </label>
+        <label>身高 (cm)
+          <input type="number" id="height" min="140" max="220" value="170" required>
+        </label>
+        <label>当前体重 (kg)
+          <input type="number" id="weight" min="40" max="200" step="0.1" value="75" required>
+        </label>
+        <label>目标体重 (kg)
+          <input type="number" id="goal-weight" min="40" max="200" step="0.1" value="70" required>
+        </label>
+        <label>活动水平
+          <select id="activity" required>
+            <option value="1.2">久坐 (几乎不运动)</option>
+            <option value="1.375" selected>轻度活动 (每周1-3次)</option>
+            <option value="1.55">中度活动 (每周3-5次)</option>
+            <option value="1.725">高度活动 (每周6-7次)</option>
+            <option value="1.9">极高活动 (体力劳动+训练)</option>
+          </select>
+        </label>
+        <button type="submit">计算并保存目标</button>
+      </form>
+      <div id="targets" class="results" hidden>
+        <h3>你的每日目标</h3>
+        <div id="targets-display"></div>
+        <p class="note">数据仅供参考，非医疗建议。有疾病请咨询医生或注册营养师。</p>
+      </div>
+    </section>
+    <!-- Other pages placeholders -->
+    <section id="ingredients" class="page"><h2>食材库</h2><p>即将上线</p></section>
+    <section id="mixer" class="page"><h2>杂粮饭配比器</h2><p>即将上线</p></section>
+    <section id="plate" class="page"><h2>一餐搭配</h2><p>即将上线</p></section>
+    <section id="log" class="page"><h2>今日饮食</h2><p>即将上线</p></section>
+    <section id="fat" class="page"><h2>脂肪预算</h2><p>即将上线</p></section>
+    <section id="protein" class="page"><h2>蛋白补充</h2><p>即将上线</p></section>
+    <section id="fiber" class="page"><h2>纤维与饮水</h2><p>即将上线</p></section>
+    <section id="recipes" class="page"><h2>懒人蔬菜</h2><p>即将上线</p></section>
+    <section id="weekly" class="page"><h2>一周菜单</h2><p>即将上线</p></section>
+    <section id="changelog" class="page"><h2>更新日志</h2><pre id="changelog-content"></pre></section>
+  </main>
+  <nav class="bottom-nav">
+    <button data-page="profile" class="active">目标</button>
+    <button data-page="ingredients">食材</button>
+    <button data-page="mixer">杂粮</button>
+    <button data-page="plate">搭配</button>
+    <button data-page="log">今日</button>
+    <button data-page="fat">脂肪</button>
+    <button data-page="protein">蛋白</button>
+    <button data-page="fiber">纤维</button>
+    <button data-page="recipes">蔬菜</button>
+    <button data-page="weekly">一周</button>
+  </nav>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+:root {
+  --bg: #f8f9fa;
+  --fg: #212529;
+  --primary: #2d6a4f;
+  --primary-light: #40916c;
+  --card: #ffffff;
+  --border: #dee2e6;
+  --danger: #d00000;
+  --warning: #ffba08;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --fg: #e0e0e0;
+    --primary: #40916c;
+    --primary-light: #52b788;
+    --card: #1e1e1e;
+    --border: #333;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  padding-bottom: 70px;
+  font-size: 16px;
+}
+header {
+  background: var(--primary);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+h1 { margin: 0; font-size: 1.25rem; }
+#version { font-size: 0.75rem; opacity: 0.8; }
+main { padding: 16px; max-width: 600px; margin: 0 auto; }
+.page { display: none; }
+.page.active { display: block; }
+form label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 16px;
+  background: var(--card);
+  color: var(--fg);
+}
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+}
+button:active { background: var(--primary-light); }
+.results {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+}
+.note { font-size: 0.85rem; color: #666; margin-top: 12px; }
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  display: flex;
+  overflow-x: auto;
+  z-index: 20;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.bottom-nav button {
+  flex: 1;
+  min-width: 60px;
+  padding: 10px 4px;
+  font-size: 0.7rem;
+  background: transparent;
+  color: var(--fg);
+  border: none;
+  border-radius: 0;
+}
+.bottom-nav button.active {
+  color: var(--primary);
+  font-weight: 700;
+  border-top: 2px solid var(--primary);
+}
+@media (max-width: 360px) {
+  .bottom-nav button { font-size: 0.65rem; padding: 8px 2px; }
+}
