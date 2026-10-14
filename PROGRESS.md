@@ -15,3 +15,6 @@
 - Expand ingredient data significantly.
 - Plate builder (一餐搭配).
 - Daily log basics.
+
+### v0.4.0
+- Basic plate builder shipped.
