@@ -13,6 +13,7 @@ async function loadIngredients() {
     grains = ingredients.filter(i => i.cookedYield);
     initPlate();
     initLog();
+    initWeekly();
     initMixer();
   } catch (e) {
     console.error('Failed to load ingredients', e);
@@ -292,3 +293,23 @@ function initLog() {
 }
 
 // Ensure called
+
+function initWeekly() {
+  const btn = document.getElementById('gen-weekly');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const el = document.getElementById('weekly-result');
+    el.innerHTML = `
+      <h3>示例周计划（简化）</h3>
+      <p>周一：杂粮饭 + 鸡胸 + 菠菜（油8g）</p>
+      <p>周二：杂粮饭 + 鸡蛋 + 西兰花</p>
+      <p>周三：红薯 + 豆腐 + 番茄</p>
+      <p>... 共7天，复用食材。购物清单：大米、小米、鸡胸、鸡蛋、菠菜、西兰花、油等。</p>
+      <p class="note">完整生成器将根据目标优化热量与蛋白。</p>
+    `;
+    el.hidden = false;
+  });
+}
+// Call it
+sed -i '/initLog();/a\    initWeekly();' js/main.js 2>/dev/null || true
+    initWeekly();
