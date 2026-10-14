@@ -21,7 +21,7 @@
 ## After 10 features
 Rotate through friction, nutrition quality, insight, polish, reliability.
 
-## Research-driven items (from needs-research worker; sources in docs/RESEARCH.md)
+## Research-driven items (from needs-research worker; sources in docs/RESEARCH.md and docs/RESEARCH-R4.md)
 Fold these into the features above; P0 = do while building that feature.
 
 - **P0 · R-01 Goal pace & end-point check (into #1 我的目标)** — RESEARCH R1.1
@@ -37,6 +37,15 @@ Fold these into the features above; P0 = do while building that feature.
 - **P0 · R-06 Seed verified FDC staples (into #2 食材库)** — RESEARCH R3.1 (verified via official FDC API)
   - Add the 10 rows of R3.1 (thigh, breast, light/white tuna, white/brown rice, millet, broccoli, carrot, olive oil) with `source: "USDA FDC <id>"`, `verified: true`.
   - Unit test: data file values equal R3.1 table; UI shows no "≈" for these.
+- **P0 · R-15 Fiber gap fix in owner's default day (into #8 纤维与饮水 and #10)** — RESEARCH-R4 R4.2
+  - His template day computes to ≈15 g fiber vs 25–30 g target; fiber tracker must flag this on day 1.
+  - Swap suggestions ranked by fiber gained per kcal, using verified values: 燕麦 40 g (+4.2 g), 豌豆 100 g (+5.7 g), extra leafy veg, 2 kiwis; note that half brown rice only adds ≈2.4 g.
+  - Unit test: template day fiber = 15 ± 1 g; after adding 40 g oats + 100 g peas ≥ 24 g.
+- **P1 · R-14 Owner's plan as default template (into #4 / #10)** — RESEARCH-R4 R4.2
+  - Preset "我的计划日" = 3 eggs, 400 g rice, 360 g skinless thigh, 100 g light tuna, 500 g broccoli+carrot, 15 g oil.
+  - Unit test: totals ≈ 1782 kcal / 149 g P / 62 g F / 153 g C (±2%).
+- **P1 · R-16 Seed 12 more verified foods (into #2)** — RESEARCH-R4 R4.1
+  - Eggs (raw, boiled), shrimp, firm tofu, salmon, oats, sweet potato, boiled broccoli, spinach, white mushroom, peas, avocado with FDC ids; 南豆腐 stays `verified:false` until a Chinese table value is added.
 - **P1 · R-04 Bedtime-aware dinner nudge (into #1 profile + #5 log)** — RESEARCH R1.4
   - Profile has bedtime (default 23:30). Daily view shows "晚餐建议在 HH:MM 前吃完" (bedtime − 3 h).
   - Evening prep plan separates 备餐 (for tomorrow) from 今晚吃; no big meal suggested within 2 h of bedtime.
@@ -52,13 +61,13 @@ Fold these into the features above; P0 = do while building that feature.
   - Daily oil total compared to 中国居民膳食指南 25–30 g; fat wallet categorises skin-on/fried as low-value.
   - Unit test: recipe with 15 g olive oil adds 132.6 kcal / 15 g fat.
 - **P1 · R-09 Fish/tuna weekly counter (into #5 log / #10 plan)** — RESEARCH R3.3
-  - Food items carry `mercuryClass` (best/good/avoid per FDA list); tuna split into 淡(鰣鱼类) and 白(长鳍).
+  - Food items carry `mercuryClass` (best/good/avoid per FDA list); tuna split into 淡(鰣鱼/skipjack) and 白(长鳍/albacore).
   - Weekly soft note when light tuna > 3×113 g or albacore > 1×113 g; plan generator rotates in shrimp/salmon/鲳鱼. Copy says it's a conservative reference.
 - **P1 · R-10 Plateau & diet-break assistant (Insight pass)** — RESEARCH R3.6
   - Trigger only when 7-day avg weight change < 0.1 kg over ≥ 14 days AND ≥ 5 days/week logged.
   - Offer: −100–150 kcal, or +steps, or 1–2 week maintenance block; maintenance block updates goal-date projection.
   - Unit tests for trigger logic (no trigger with sparse logging).
-- **P1 · R-11 Low-friction batch prep: one tray, few dishes (into #10 周日备餐/晚间备餐)** — RESEARCH R3.7, R1.5
+- **P1 · R-11 Low-friction batch prep: one tray, few dishes (into #10 周日备餐/晚间备餐)** — RESEARCH R3.7, R1.5, RESEARCH-R4 R4.3
   - A 30-min evening template: rice cooker (杂粮饭) + one sheet pan/air fryer (thigh + veg) + microwave eggs; shows total active minutes, 锅具数, and 护腕 flag.
   - Sauce rotation (≥ 5 low-oil sauces) so the same base doesn't repeat flavour 2 days running.
 - **P2 · R-12 Sleep helpers (into #5 log)** — RESEARCH R3.5
