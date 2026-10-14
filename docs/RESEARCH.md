@@ -47,3 +47,15 @@ User profile source: owner's plan doc (Drive) — male, 29y, 173.5 cm, 74 kg, es
 | Tuna, light, canned in water, drained | 86 | 19.44 | 0.96 | 173709 https://fdc.nal.usda.gov/fdc-app.html#/food-details/173709/nutrients |
 | Tuna, white, canned in water, drained | — | 23.60 | — | 175158 https://fdc.nal.usda.gov/fdc-app.html#/food-details/175158/nutrients |
 (Values read via FDC-mirroring pages; mark verified after the engineer re-checks on fdc.nal.usda.gov.)
+
+---
+
+## Round 2 — 2026-10-15 (SGT)
+
+### R2.1 Coarse grains: the win is fiber/GI, not calories
+- Cooked, per 100 g (USDA FDC via mirror pages, verify before marking verified): white rice ≈130 kcal (FDC 168878), brown rice ≈123 kcal (FDC 169704), millet ≈119 kcal (FDC 168871).
+  - https://meal-plan.app/en/foods/cereal-grains-and-pasta/rice-brown-cooked-includes-foods-for-usda-s-food-distribution-program-169704/
+  - https://nutri-db.com/en/foods/168871
+- GI (Atkinson et al. 2021 international tables, glucose = 100): white rice avg 73, brown rice avg 65, oat products avg 55; low ≤55, medium 56–69, high ≥70. Values vary a lot by variety/processing (e.g. some foxtail-millet products ≥76). https://ajcn.nutrition.org/article/S0002-9165(22)00494-4/fulltext
+- His plan: ~400 g cooked rice/day ≈ 520 kcal (arithmetic from 130 kcal/100 g) ≈ 29% of an 1800 kcal target. Swapping white for a 杂粮饭 blend barely changes kcal per gram.
+- **Implication:** the 杂粮饭 mixer must not imply coarse grains are "lower calorie"; show kcal unchanged, fiber up, GI band shifting (label GI as approximate, category-level). Portion size of cooked rice is the main kcal lever → bowl/gram presets matter.
