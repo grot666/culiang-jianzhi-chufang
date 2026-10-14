@@ -313,3 +313,39 @@ function initWeekly() {
 // Call it
 sed -i '/initLog();/a\    initWeekly();' js/main.js 2>/dev/null || true
     initWeekly();
+
+function initBackup() {
+  document.getElementById('export-data')?.addEventListener('click', () => {
+    const data = {
+      profile: loadProfile(),
+      log: loadLog(),
+      version: 1,
+      exported: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'culiang-backup.json';
+    a.click();
+  });
+  document.getElementById('import-data')?.addEventListener('click', () => {
+    document.getElementById('import-file').click();
+  });
+  document.getElementById('import-file')?.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = JSON.parse(reader.result);
+        if (data.profile) saveProfile(data.profile);
+        if (data.log) saveLog(data.log);
+        alert('导入成功，刷新页面查看');
+        location.reload();
+      } catch { alert('无效 JSON'); }
+    };
+    reader.readAsText(file);
+  });
+}
+// Call
+sed -i '/initWeekly();/a\    initBackup();' js/main.js || echo "initBackup();" >> js/main.js

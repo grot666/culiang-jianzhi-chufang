@@ -13,7 +13,7 @@
 <body>
   <header>
     <h1>粗粮减脂厨房</h1>
-    <span id="version">v0.8.0</span>
+    <span id="version">v0.9.0</span>
   </header>
   <main id="app">
     <section id="profile" class="page active">
@@ -49,6 +49,11 @@
         <button type="submit">计算并保存目标</button>
       </form>
       <div id="targets" class="results" hidden>
+      <div style="margin-top:16px">
+        <button id="export-data">导出 JSON 备份</button>
+        <button id="import-data">导入 JSON</button>
+        <input type="file" id="import-file" accept=".json" hidden>
+      </div>
         <h3>你的每日目标</h3>
         <div id="targets-display"></div>
         <p class="note">数据仅供参考，非医疗建议。有疾病请咨询医生或注册营养师。</p>
@@ -152,3 +157,4 @@
 </body>
 </html>
 <!-- Wait, better replace the mixer section -->
+<!-- Add export in profile or new section, but for now append to profile -->
