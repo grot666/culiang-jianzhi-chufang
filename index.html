@@ -13,7 +13,7 @@
 <body>
   <header>
     <h1>粗粮减脂厨房</h1>
-    <span id="version">v0.3.0</span>
+    <span id="version">v0.4.0</span>
   </header>
   <main id="app">
     <section id="profile" class="page active">
@@ -67,7 +67,27 @@
       <button id="calc-blend">计算配比</button>
       <div id="blend-result" class="results" hidden></div>
     </section>
-    <section id="plate" class="page"><h2>一餐搭配</h2><p>即将上线</p></section>
+    <section id="plate" class="page">
+      <h2>一餐搭配</h2>
+      <p>选择主食 + 蛋白 + 蔬菜 + 脂肪，查看宏量与评分。</p>
+      <label>主食 (熟重 g)
+        <input type="number" id="plate-staple-g" value="200" min="0">
+      </label>
+      <select id="plate-staple"></select>
+      <label>蛋白 (g)
+        <input type="number" id="plate-protein-g" value="150" min="0">
+      </label>
+      <select id="plate-protein"></select>
+      <label>蔬菜 (g)
+        <input type="number" id="plate-veg-g" value="200" min="0">
+      </label>
+      <select id="plate-veg"></select>
+      <label>油 (g)
+        <input type="number" id="plate-oil-g" value="8" min="0" step="1">
+      </label>
+      <button id="calc-plate">计算这一餐</button>
+      <div id="plate-result" class="results" hidden></div>
+    </section>
     <section id="log" class="page"><h2>今日饮食</h2><p>即将上线</p></section>
     <section id="fat" class="page"><h2>脂肪预算</h2><p>即将上线</p></section>
     <section id="protein" class="page"><h2>蛋白补充</h2><p>即将上线</p></section>

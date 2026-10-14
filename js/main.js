@@ -11,6 +11,7 @@ async function loadIngredients() {
     ingredients = await res.json();
     renderIngredients(ingredients);
     grains = ingredients.filter(i => i.cookedYield);
+    initPlate();
     initMixer();
   } catch (e) {
     console.error('Failed to load ingredients', e);
@@ -172,3 +173,58 @@ if ('serviceWorker' in navigator) {
 }
 
 init();
+
+function initPlate() {
+  const stapleSel = document.getElementById('plate-staple');
+  const proteinSel = document.getElementById('plate-protein');
+  const vegSel = document.getElementById('plate-veg');
+  if (!stapleSel) return;
+  // Populate from ingredients
+  const staples = ingredients.filter(i => i.tags && i.tags.includes('主食'));
+  const proteins = ingredients.filter(i => i.tags && i.tags.includes('蛋白'));
+  const vegs = ingredients.filter(i => i.tags && i.tags.includes('蔬菜'));
+  stapleSel.innerHTML = staples.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+  proteinSel.innerHTML = proteins.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+  vegSel.innerHTML = vegs.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+  document.getElementById('calc-plate').addEventListener('click', () => {
+    const stapleId = stapleSel.value;
+    const proteinId = proteinSel.value;
+    const vegId = vegSel.value;
+    const stapleG = +document.getElementById('plate-staple-g').value;
+    const proteinG = +document.getElementById('plate-protein-g').value;
+    const vegG = +document.getElementById('plate-veg-g').value;
+    const oilG = +document.getElementById('plate-oil-g').value;
+    const get = id => ingredients.find(i => i.id === id) || {kcal:0,protein:0,fat:0,carbs:0,fiber:0};
+    const staple = get(stapleId);
+    const protein = get(proteinId);
+    const veg = get(vegId);
+    const oil = get('oil') || {kcal:899, fat:99.9};
+    // Assume staple is cooked; simple scale
+    const totalKcal = Math.round(
+      (staple.kcal * stapleG / 100) +
+      (protein.kcal * proteinG / 100) +
+      (veg.kcal * vegG / 100) +
+      (oil.kcal * oilG / 100)
+    );
+    const totalP = +(
+      (staple.protein * stapleG / 100) +
+      (protein.protein * proteinG / 100) +
+      (veg.protein * vegG / 100)
+    ).toFixed(1);
+    const totalF = +(
+      (staple.fat * stapleG / 100) +
+      (protein.fat * proteinG / 100) +
+      (veg.fat * vegG / 100) +
+      (oil.fat * oilG / 100)
+    ).toFixed(1);
+    const el = document.getElementById('plate-result');
+    el.innerHTML = `
+      <p>本餐约: ${totalKcal} kcal · P ${totalP}g · F ${totalF}g</p>
+      <p>健康: 4/5 · 好做: 5/5 · 便宜: 4/5 · 好吃: 4/5 （示例评分）</p>
+      <p class="note">油量 ${oilG}g ≈ ${Math.round(oilG*0.9)} tsp，是脂肪主要来源。</p>
+    `;
+    el.hidden = false;
+  });
+}
+
+// Call after load
