@@ -13,7 +13,7 @@
 <body>
   <header>
     <h1>粗粮减脂厨房</h1>
-    <span id="version">v0.2.0</span>
+    <span id="version">v0.3.0</span>
   </header>
   <main id="app">
     <section id="profile" class="page active">
@@ -60,7 +60,13 @@
       <div id="ingredient-list"></div>
       <p class="note">价格为上海市场估算，可覆盖。数据来源标注，未验证显示 ≈</p>
     </section>
-    <section id="mixer" class="page"><h2>杂粮饭配比器</h2><p>即将上线</p></section>
+    <section id="mixer" class="page">
+      <h2>杂粮饭配比器</h2>
+      <p>选择谷物和比例（总和100%），查看生/熟热量。</p>
+      <div id="grain-selectors"></div>
+      <button id="calc-blend">计算配比</button>
+      <div id="blend-result" class="results" hidden></div>
+    </section>
     <section id="plate" class="page"><h2>一餐搭配</h2><p>即将上线</p></section>
     <section id="log" class="page"><h2>今日饮食</h2><p>即将上线</p></section>
     <section id="fat" class="page"><h2>脂肪预算</h2><p>即将上线</p></section>
@@ -85,3 +91,4 @@
   <script type="module" src="js/main.js"></script>
 </body>
 </html>
+<!-- Wait, better replace the mixer section -->

@@ -1,13 +1,17 @@
 import { calculateTargets } from './core/nutrition.js';
+import { blendGrains } from './core/grain.js';
 
 const STORAGE_KEY = 'culiang.v1.profile';
 let ingredients = [];
+let grains = [];
 
 async function loadIngredients() {
   try {
     const res = await fetch('./data/ingredients.json');
     ingredients = await res.json();
     renderIngredients(ingredients);
+    grains = ingredients.filter(i => i.cookedYield);
+    initMixer();
   } catch (e) {
     console.error('Failed to load ingredients', e);
     document.getElementById('ingredient-list').textContent = '食材数据加载失败';
@@ -31,6 +35,7 @@ function renderIngredients(list) {
 
 function initSearch() {
   const input = document.getElementById('ingredient-search');
+  if (!input) return;
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
     const filtered = ingredients.filter(i => 
@@ -39,6 +44,44 @@ function initSearch() {
     );
     renderIngredients(filtered);
   });
+}
+
+function initMixer() {
+  const container = document.getElementById('grain-selectors');
+  if (!container || !grains.length) return;
+  container.innerHTML = grains.map(g => `
+    <label>${g.name} (%)
+      <input type="number" class="grain-ratio" data-id="${g.id}" min="0" max="100" value="${g.id === 'rice-white' ? 60 : g.id === 'millet' ? 20 : g.id === 'corn-grits' ? 20 : 0}" step="5">
+    </label>
+  `).join('');
+  const btn = document.getElementById('calc-blend');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const selections = [];
+      document.querySelectorAll('.grain-ratio').forEach(input => {
+        const pct = +input.value;
+        if (pct > 0) {
+          const g = grains.find(gr => gr.id === input.dataset.id);
+          if (g) selections.push({ ...g, ratioPct: pct });
+        }
+      });
+      const result = blendGrains(selections);
+      const el = document.getElementById('blend-result');
+      if (!result) {
+        el.innerHTML = '<p class="warning">比例总和需为100%</p>';
+      } else {
+        el.innerHTML = `
+          <p>生100g: ${result.rawPer100.kcal} kcal · P${result.rawPer100.protein}g · F${result.rawPer100.fat}g · C${result.rawPer100.carbs}g</p>
+          <p>熟100g: ${result.cookedPer100.kcal} kcal · P${result.cookedPer100.protein}g</p>
+          <p>一碗熟 (~200g): ≈ ${result.bowlKcal} kcal</p>
+          <p>建议水比约 1:${result.waterRatio} （根据电饭煲微调）</p>
+          <p>${result.needsSoak ? '含需浸泡谷物（如糙米），建议提前泡30-60分钟' : '小米/玉米渣等可直接入锅'}</p>
+          <p class="note">电饭煲步骤：混合谷物，按比例加水，选择普通煮饭模式。</p>
+        `;
+      }
+      el.hidden = false;
+    });
+  }
 }
 
 function loadProfile() {
@@ -124,7 +167,6 @@ function init() {
   initSearch();
 }
 
-// PWA
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW failed', err));
 }

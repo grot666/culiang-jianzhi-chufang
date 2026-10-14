@@ -2,7 +2,6 @@
   {
     "id": "rice-white",
     "name": "大米",
-    "nameEn": "White rice, raw",
     "kcal": 347,
     "protein": 7.4,
     "fat": 0.8,
@@ -18,7 +17,6 @@
   {
     "id": "millet",
     "name": "小米",
-    "nameEn": "Millet, raw",
     "kcal": 358,
     "protein": 9.0,
     "fat": 3.1,
@@ -32,9 +30,54 @@
     "cookedYield": 2.8
   },
   {
+    "id": "corn-grits",
+    "name": "玉米渣",
+    "kcal": 355,
+    "protein": 8.5,
+    "fat": 3.8,
+    "carbs": 74.0,
+    "fiber": 6.4,
+    "priceCNYPer500g": 5.0,
+    "ease": 5,
+    "tags": ["主食", "粗粮"],
+    "source": "中国食物成分表 estimate",
+    "verified": false,
+    "cookedYield": 2.6
+  },
+  {
+    "id": "oats",
+    "name": "燕麦米",
+    "kcal": 389,
+    "protein": 16.9,
+    "fat": 6.9,
+    "carbs": 66.3,
+    "fiber": 10.6,
+    "priceCNYPer500g": 8.0,
+    "ease": 4,
+    "tags": ["主食", "粗粮"],
+    "source": "USDA",
+    "verified": true,
+    "cookedYield": 2.2
+  },
+  {
+    "id": "brown-rice",
+    "name": "糙米",
+    "kcal": 348,
+    "protein": 7.9,
+    "fat": 2.9,
+    "carbs": 73.0,
+    "fiber": 3.5,
+    "priceCNYPer500g": 6.5,
+    "ease": 3,
+    "tags": ["主食", "粗粮"],
+    "source": "中国食物成分表",
+    "verified": true,
+    "cookedYield": 2.4,
+    "soak": true
+  },
+  {
     "id": "egg",
     "name": "鸡蛋",
-    "nameEn": "Egg, whole",
     "kcal": 144,
     "protein": 13.3,
     "fat": 8.8,
@@ -50,7 +93,6 @@
   {
     "id": "chicken-breast",
     "name": "鸡胸肉",
-    "nameEn": "Chicken breast, raw",
     "kcal": 133,
     "protein": 19.4,
     "fat": 5.0,
@@ -65,7 +107,6 @@
   {
     "id": "spinach",
     "name": "菠菜",
-    "nameEn": "Spinach",
     "kcal": 28,
     "protein": 2.6,
     "fat": 0.3,
